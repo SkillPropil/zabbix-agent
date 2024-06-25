@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+    - name: "Include sample.zabbix_agent"
+      ansible.builtin.include_role:
+        name: "sample.zabbix_agent"
+
