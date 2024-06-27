@@ -5,10 +5,10 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: centos:7
-#    pre_build_image: false
+    image: geerlingguy/docker-centos7-ansible:latest
     volumes:
-      - /etc/pki/ca-trust/source/anchors:/etc/pki/ca-trust/source/anchors
+      - /etc/pki/ca-trust/source/anchors:/etc/pki/ca-trust/source/anchors    
+
 provisioner:
   name: ansible
   env:
@@ -21,8 +21,6 @@ scenario:
   idempotent: false
   test_sequence:
     - destroy
-#    - idempotence
     - create
     - converge
-#    - lint
     - verify
