@@ -5,10 +5,10 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: centos7
+    image: centos:7
     volumes:
       - /etc/pki/ca-trust/source/anchors:/etc/pki/ca-trust/source/anchors    
-
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
   env:
