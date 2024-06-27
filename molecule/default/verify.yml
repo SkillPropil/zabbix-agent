@@ -9,7 +9,7 @@
       ansible.builtin.assert:
         that: true
 
-    - name: Zabbix agent has started
+    - name: Restart zabbix-agent
       ansible.builtin.service:
         name: zabbix-agent
         state: started
