@@ -8,3 +8,8 @@
     - name: Example assertion
       ansible.builtin.assert:
         that: true
+
+    - name: Zabbix agent has started
+      ansible.builtin.service:
+        service: zabbix-agent
+        state: started
