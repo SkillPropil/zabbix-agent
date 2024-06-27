@@ -11,5 +11,5 @@
 
     - name: Zabbix agent has started
       ansible.builtin.service:
-        service: zabbix-agent
+        name: zabbix-agent
         state: started
