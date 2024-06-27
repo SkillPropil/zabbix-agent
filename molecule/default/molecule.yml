@@ -15,7 +15,7 @@ provisioner:
     ANSIBLE_LOCAL_TEMP: "${WORKSPACE:-$HOME}/.ansible/tmp"
     ANSIBLE_REMOTE_TMP: /tmp
 verifier:
-  name: testinfra
+  name: ansible
 scenario:
   name: default
   idempotent: false
