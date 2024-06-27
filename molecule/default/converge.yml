@@ -1,10 +1,10 @@
 ---
 - name: Converge
   hosts: all
-  gather_facts: false
-  become: true
+  vars_files:
+    - vars/main.yml
   tasks:
-    - name: "Include sample.zabbix_agent"
-      ansible.builtin.include_role:
-        name: "sample.zabbix_agent"
+    - name: "Include ansible_role_zabbix_agent"
+      include_role:
+        name: "zabbix-agent"
 

@@ -5,9 +5,14 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: docker.io/pycontribs/centos:7
+    image: centos:7
 #    pre_build_image: false
+    volumes:
+      - /etc/pki/ca-trust/source/anchors:/etc/pki/ca-trust/source/anchors
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_LOCAL_TEMP: "${WORKSPACE:-$HOME}/.ansible/tmp"
+    ANSIBLE_REMOTE_TMP: /tmp
 verifier:
   name: testinfra

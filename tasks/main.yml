@@ -1,5 +1,10 @@
 ---
 # tasks file for zabbix_agent
+- name: Update-ca-trust
+  ansible.builtin.command: update-ca-trust
+  register: ca
+  changed_when: ca.rc == 0
+
 - name: Install repository
   ansible.builtin.yum:
     name: "{{ zabbix_repo_url }}"
@@ -7,8 +12,9 @@
 
 - name: Install zabbix-agent
   ansible.builtin.yum:
-    name: zabbix-agent-4.3.1
+    name: zabbix-agent
     state: present
+    validate_certs: false
 
 - name: configure zabbix-agent
   ansible.builtin.lineinfile:
