@@ -10,6 +10,6 @@
         that: true
 
     - name: Check service state
-      ansible.builtin.sysvinit:
+      ansible.builtin.service:
         name: zabbix-agent
         state: started      

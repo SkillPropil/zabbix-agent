@@ -7,6 +7,7 @@ platforms:
   - name: instance
     image: centos:7
     privileged: true
+    entrypoint: ["/usr/sbin/init"]
     volumes:
       - /etc/pki/ca-trust/source/anchors:/etc/pki/ca-trust/source/anchors    
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
