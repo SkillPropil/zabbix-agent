@@ -1,6 +1,6 @@
 ---
 # handlers file for zabbix_agent
 - name: Restart zabbix-agent
-  ansible.builtin.service:
+  ansible.builtin.sysvinit:
     name: zabbix-agent
     state: restarted

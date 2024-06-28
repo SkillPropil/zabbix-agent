@@ -9,10 +9,7 @@
       ansible.builtin.assert:
         that: true
 
-    - name: Check if pid file exists
-      ansible.builtin.file: 
-        path: /run/zabbix/zabbix_agentd.pid
-        owner: zabbix
-        group: zabbix
-        mode: 0644
-      
+    - name: Check service state
+      ansible.builtin.sysvinit:
+        name: zabbix-agent
+        state: started      
