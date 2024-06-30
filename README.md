@@ -12,7 +12,9 @@ rm -rf /tmp/jenkins/ && git clone https://github.com/SkillPropil/zabbix-agent.gi
 [34mINFO    [0m Pruning extra files from scenario ephemeral directory
 Finished: SUCCESS
 ```
+freestyle.png
 2) Перенес в декларативный стиль 
+
 ```
 pipeline {
     agent {
@@ -48,7 +50,6 @@ pipeline {
 
 завершился успешно:
 
-```
 [34mINFO    [0m Verifier completed successfully.
 [34mINFO    [0m Pruning extra files from scenario ephemeral directory
 [Pipeline] }
@@ -61,8 +62,9 @@ pipeline {
 [Pipeline] // node
 [Pipeline] End of Pipeline
 Finished: SUCCESS
-
 ```
+declarative st1.png
+
 3) Перенос в Jenkinsfile
 --------------
 
@@ -72,7 +74,7 @@ Finished: SUCCESS
 Finished: SUCCESS
 
 ```
-
+declarative st2.png
 4) Сделано, ветка была всего одна, но файл он собрал
 ------------
 
@@ -114,6 +116,7 @@ INFO     Verifier completed successfully.
 INFO     Pruning extra files from scenario ephemeral directory
 
 ```
+multibranch.png
 5-6 и остальное
 ------------
 код у меня получился вооот такой:
@@ -138,3 +141,5 @@ node("linux"){
 }
 ```
 Собсна все работает, проверено
+
+scripted.png
