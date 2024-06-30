@@ -1,14 +1,69 @@
-Role Name
+Zabbix-agent Домашнее задание к занятию 10 «Jenkins»
 =========
 
-A brief description of the role goes here.
-
-Requirements
+Основная часть
 ------------
+1) Был сделан Freestyle Job, который работает следующим образом:
+```
+rm -rf /tmp/jenkins/ && git clone https://github.com/SkillPropil/zabbix-agent.git /tmp/jenkins && cd /tmp/jenkins && molecule test -s default
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+отрабатывает успешно
+[34mINFO    [0m Verifier completed successfully.
+[34mINFO    [0m Pruning extra files from scenario ephemeral directory
+Finished: SUCCESS
+```
+2) Перенес в декларативный стиль 
+```
+pipeline {
+    agent {
+  label 'ansible'
+    }
+  environment {
+        
+        GIT_REPO_URL = 'https://github.com/SkillPropil/zabbix-agent.git'
 
-Role Variables
+    }
+    stages {
+        stage('First') {
+            steps {
+                sh 'rm -rf /tmp/jenkins'
+            }
+        }
+        stage('Second') {
+            steps{
+                dir('/tmp/jenkins') {
+                sh 'git clone $GIT_REPO_URL'
+            }
+          }
+        }
+        stage('Third'){
+            steps {
+                dir('/tmp/jenkins/zabbix-agent') {
+                    sh 'molecule test -s default'
+                }
+            }
+        }
+    }
+}
+
+завершился успешно:
+
+```
+[34mINFO    [0m Verifier completed successfully.
+[34mINFO    [0m Pruning extra files from scenario ephemeral directory
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
+```
+3) Перенос в Jenkinsfile
 --------------
 
 A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
