@@ -1,6 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  set_fact:
+    ansible_facts:
+      pkg_mgr: yum
   vars_files:
     - vars/main.yml
   tasks:
