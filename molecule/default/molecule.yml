@@ -5,9 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: centos7:latest
-    volumes:
-      - /etc/pki/ca-trust/source/anchors:/etc/pki/ca-trust/source/anchors    
+    image: ubuntu:22.04
 provisioner:
   name: ansible
   env:
