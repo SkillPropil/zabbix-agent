@@ -66,28 +66,75 @@ Finished: SUCCESS
 3) Перенос в Jenkinsfile
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Все перенес, результат работы:
 
-Dependencies
+```
+Finished: SUCCESS
+
+```
+
+4) Сделано, ветка была всего одна, но файл он собрал
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```
+Started by user admin
+[Sun Jun 30 22:39:55 MSK 2024] Starting branch indexing...
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+using GIT_ASKPASS to set credentials log[ass
+ > git ls-remote https://github.com/SkillPropil/zabbix-agent.git # timeout=10
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/caches/git-4ea9616a24aca0de594159bf42f49a59/.git # timeout=10
+Setting origin to https://github.com/SkillPropil/zabbix-agent.git
+ > git config remote.origin.url https://github.com/SkillPropil/zabbix-agent.git # timeout=10
+Fetching & pruning origin...
+Listing remote references...
+ > git config --get remote.origin.url # timeout=10
+ > git --version # timeout=10
+ > git --version # 'git version 1.8.3.1'
+using GIT_ASKPASS to set credentials log[ass
+ > git ls-remote -h https://github.com/SkillPropil/zabbix-agent.git # timeout=10
+Fetching upstream changes from origin
+ > git config --get remote.origin.url # timeout=10
+using GIT_ASKPASS to set credentials log[ass
+ > git fetch --tags --progress --prune origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Checking branches...
+  Checking branch main
+      ‘Jenkinsfile’ found
+    Met criteria
+Scheduled build for branch: main
+Processed 1 branches
+[Sun Jun 30 22:39:58 MSK 2024] Finished branch indexing. Indexing took 2.9 sec
+Finished: SUCCESS
 
-Example Playbook
-----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
 
-License
--------
+INFO     Verifier completed successfully.
 
-BSD
+INFO     Pruning extra files from scenario ephemeral directory
 
-Author Information
-------------------
+```
+5-6 и остальное
+------------
+код у меня получился вооот такой:
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+```
+node("linux"){
+    stage("Git checkout"){
+        git credentialsId: 'ffe96819-81dc-41b1-a681-4c8bf4dd9039', url: 'https://github.com/aragastmatb/example-playbook.git'
+    }
+    stage("Sample define secret_check"){
+        secret_check=params.PROD_RUN
+    }
+    stage("Run playbook"){
+        if (secret_check){
+            sh 'ansible-playbook site.yml -i inventory/prod.yml'
+        }
+        else{
+            sh 'ansible-playbook site.yml -i inventory/prod.yml --check --diff'
+        }
+        
+    }
+}
+```
+Собсна все работает, проверено
